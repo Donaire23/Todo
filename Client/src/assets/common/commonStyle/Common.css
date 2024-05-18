@@ -1,0 +1,45 @@
+.register-input {
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    width: 500px;
+}
+
+.success {
+    border-color: green;
+}
+
+.error {
+    border-color: red; 
+}
+
+.register-input:focus {
+    outline: none; 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.error-message {
+    color: red;
+}
+.ant-layout-sider-trigger {
+  display: none;
+}
+.input-task {
+    background-color: white;
+  }
+.input-task:focus {
+  outline: none;
+}
+.input-rejected .MuiInputBase-root {
+  border-color: darkred;
+}
+
+.input-rejected .MuiOutlinedInput-notchedOutline {
+  border-color: red;
+}
+
+.input-rejected:hover .MuiOutlinedInput-notchedOutline {
+  border-color: darkred;
+}
+
+.input-rejected.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: darkred;
+}
