@@ -16,6 +16,7 @@ import WebTemplate from "../common/template/Webtemplate";
 import { connect} from 'react-redux';
 import Cookie from 'js-cookie'
 import {  btnText } from '../Text/titles/Module';
+import { useNavigate } from "react-router-dom";
 import { 
   getUser, 
   todayTasks, 
@@ -32,6 +33,7 @@ import {
 import { addTask } from "../action/addTask"; 
 const Home = (props) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate();
     const {
            task_name, 
            task_description, 
@@ -171,8 +173,8 @@ const Home = (props) => {
         throw error
       } finally {
         setTimeout(() => {
+          navigation('/welcome')
           setShowSpinner(false);
-          
       }, 1000); 
       }
      
