@@ -172,7 +172,7 @@ const Home = (props) => {
       } finally {
         setTimeout(() => {
           setShowSpinner(false);
-          window.location.reload()
+          
       }, 1000); 
       }
      
