@@ -173,12 +173,10 @@ const Home = (props) => {
         throw error
       } finally {
         setTimeout(() => {
+          navigate('/login')
           setShowSpinner(false);
       }, 1000); 
-        setTimeout(() => {
-          navigation('/login')
-      }, 1000); 
-           
+    
       }
      
     }
