@@ -57,7 +57,6 @@ router.get('/upcommingTask', async(req, res) => {
         ]);
         res.send(tasks)
     } catch(error) {
-        console.error('Error:', error); 
         res.status(500).json({ message: error.message });
     }
 });
@@ -75,7 +74,6 @@ router.get('/delayTask', async(req, res) => {
         ]);
         res.send(tasks)
     } catch(error) {
-        console.error('Error:', error); 
         res.status(500).json({ message: error.message });
     }
 });
@@ -85,7 +83,6 @@ router.get('/stickWall', async(req, res) => {
     try {
        
     } catch(error) {
-        console.error('Error:', error); 
         res.status(500).json({ message: error.message });
     }
 });
@@ -96,7 +93,6 @@ router.delete('/delete', async(req, res) => {
         await Task.findByIdAndDelete(taskID);
         res.status(200).json({ message: "Task deleted successfully" });
     } catch(error) {
-        console.error('Error:', error); 
         res.status(500).json({ message: error.message });
     }
 })
@@ -128,7 +124,6 @@ router.put('/edit', async (req, res) => {
 
         res.status(200).json({ message: "Task updated successfully" });
     } catch (error) {
-        console.error('Error:', error);
         res.status(500).json({ message: error.message });
     }
 });

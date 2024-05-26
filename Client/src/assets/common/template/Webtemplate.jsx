@@ -1,10 +1,11 @@
 import "../commonStyle/Common.css"
 import { Link } from 'react-router-dom';
-import { TextField } from '@mui/material';
+import { TextField, IconButton, InputAdornment } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { checkIfValid } from "../helpers/checkIfValid";
 import { useState, useRef, useEffect } from "react";
 import EditDateEPicker from "../commonStyle/dateEdit";
+
 
   const theme = createTheme({
     components: {
@@ -41,24 +42,6 @@ const WebTemplate = (props) => {
         taskRef.current.focus(); 
       }
     }, [key])
-
-    const test = [
-      {
-        title: 'Test1',
-        description: 'Description1',
-        color: "red"
-      },
-      {
-        title: 'Test2',
-        description: 'Description2',
-        color: "yellow"
-      },
-      {
-        title: 'Test3',
-        description: 'Description3',
-        color: "black"
-      }
-    ]
 
     return (
       <div className="wrapper d-flex">
@@ -160,65 +143,71 @@ const WebTemplate = (props) => {
         {/* Login Page */}
         {props.isLoginPage && props.isLoginPage ? 
 
-           <div 
-             className="d-flex align-items-center justify-content-center" 
-             style={{height: '100vh', width: "50vw"}}
-            >
+          <div 
+            className="d-flex align-items-center justify-content-center" 
+            style={{height: '100vh', width: "50vw"}}
+          >
 
-                <div 
-                 className="col-lg-10"
-                >
-                  
-                 {props.signInText ? 
+              <div 
+                className="col-lg-10"
+              >
+                
+                {props.signInText ? 
 
-                     <h2 className="fw-bold">{props.signInText}</h2> 
-                     
+                    <h2 className="fw-bold">{props.signInText}</h2> 
+                    
 
-                    : null}
-
-                    <div className="d-flex flex-column mt-2 col-lg-12 ">
-                        <TextField  
-                          value={props.email}  
-                          onChange={(e) => props.setEmailAddress(e.target.value)} 
-                          label='Email Address' 
-                          className="register-input mt-1 mb-1 pt-2 pb-2 col-lg-12"
-                        />
-                         {error && error === "Email not found" || error === "Please type your email" ? <span className="error-message mt-2 mb-4">{error}</span> : null}
-                        <TextField  
-                           value={props.password}
-                           onChange={(e) => props.setPassword(e.target.value)}
-                          label='Password' 
-                          className="register-input mt-1 mb-1 pt-2 pb-2 col-lg-12"
-                        />
-                        {error && error === 'Incorrect password' || error === "Please type your password" ? <span className="error-message mt-1 mb-1">{error}</span> : null}
-                    </div>
-
-                    {props.loginBtn ? 
-                       <button  
-                         className="col-lg-12 pt-2 pb-2 mt-4" 
-                         style={{backgroundColor: `${props.bgColor}`, border: 'none', borderRadius: '5px', fontWeight: '600'}}
-                         onClick={() => props.disp()}
-                        >
-                          {props.loginBtn}
-                        </button> 
-                          : null}
-
-  
-                    {props.dontHaveAnAcc ? 
-                      <Link to='/register' className="text-center mt-3">
-                          <button 
-                          style={{border: 'none', backgroundColor: 'white'}}
-                          className="text-center col-lg-12 mt-2"
-                          >
-                            {props.dontHaveAnAcc}
-                        </button> 
-                      </Link>
                   : null}
-                </div>
 
-            </div>
+                  <form 
+                    className="d-flex flex-column mt-2 col-lg-12"
+                    onSubmit={(e) => {
+                      e.preventDefault(); 
+                      props.disp(); 
+                    }}
+                  >  
+                      <TextField  
+                        value={props.email}  
+                        onChange={(e) => props.setEmailAddress(e.target.value)} 
+                        label='Email Address' 
+                        className="register-input mt-1 mb-1 pt-2 pb-2 col-lg-12"
+                      />
+                      {error && (error === "Email not found" || error === "Please type your email") ? <span className="error-message mt-2 mb-4">*{error}</span> : null}
+                      <TextField  
+                        type="password"
+                          value={props.password}
+                          onChange={(e) => props.setPassword(e.target.value)}
+                          label='Password' 
+                        className="register-input mt-1 mb-1 pt-2 pb-2 col-lg-12"
+                      />
+                      {error && (error === 'Incorrect password' || error === "Please type your password") ? <span className="error-message mt-1 mb-1">*{error}</span> : null}
+                      
+                      {props.loginBtn ? 
+                          <button  
+                            type="submit"
+                            className="col-lg-12 pt-2 pb-2 mt-4" 
+                            style={{backgroundColor: `${props.bgColor}`, border: 'none', borderRadius: '5px', fontWeight: '600'}}
+                          >
+                            {props.loginBtn}
+                          </button> 
+                            : null}
+                  </form>
 
-        : null}
+                  {props.dontHaveAnAcc ? 
+                    <Link to='/register' className="text-center mt-3">
+                        <button 
+                        style={{border: 'none', backgroundColor: 'white'}}
+                        className="text-center col-lg-12 mt-2"
+                        >
+                          {props.dontHaveAnAcc}
+                      </button> 
+                    </Link>
+                : null}
+              </div>
+
+          </div>
+
+          : null}
 
         {props.isRegisterPage && props.isRegisterPage ? 
 
@@ -232,6 +221,7 @@ const WebTemplate = (props) => {
                    label='Name'  
                    className="register-input mt-1 mb-1 pt-2 pb-2"
                   />
+                   {error && (error === "Please type your name") ? <span className="error-message mt-1 mb-1">*{error}</span> : null}
                 <TextField value={props.email}  
                     onChange={(e) => props.setEmailAddress(e.target.value)}   
                     label='Email Address' variant='outlined' 
@@ -245,6 +235,7 @@ const WebTemplate = (props) => {
                 />
                 {error && error === "Invalid password" ? <span className="error-message mt-1  mb-3">{error}</span> : null}
                 <TextField  value={props.repeatPassword}  onChange={(e) => props.setRepeatPass(e.target.value)}  label='Repeat Password' variant='outlined' className="register-input mt-1 mb-1 pt-2 pb-2"/>
+                {error && error === "Password does not match" ? <span className="error-message mt-1  mb-2">{error}</span> : null}
                 </ThemeProvider>
               </div>
               <button 

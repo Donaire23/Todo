@@ -15,7 +15,6 @@ router.get("/getUser", async (req, res) => {
 
         res.status(200).json({ name: user.full_name });
     } catch(error) {
-        console.log(error);
         res.status(500).json({ message: 'Error retrieving user data', error: error.message });
     }
 });

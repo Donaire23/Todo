@@ -8,7 +8,7 @@ import {
     CalendarFilled,
     UnorderedListOutlined,
   } from '@ant-design/icons';
-  const { Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 import { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import Modals from '../common/modal/Modal'
@@ -83,7 +83,10 @@ const Home = (props) => {
     const handleAddTask = async () => { 
       setShowSpinner(true);
       try {
-          await dispatch(addTask({ task_name, task_description, task_date}));
+          await dispatch(addTask({ 
+            task_name, 
+            task_description, 
+            task_date}));
       } catch(error) {
           throw error
       } finally {
@@ -144,7 +147,11 @@ const Home = (props) => {
     const handleEditedTask = (id) => {
       setShowSpinner(true);
       try {
-        dispatch(editTask({date: new_date, description: new_task_description, task_name: new_task_name, task_id: id}))
+        dispatch(editTask({
+          date: new_date, 
+          description: new_task_description, 
+          task_name: new_task_name, 
+          task_id: id}))
       } catch (error) {
 
       } finally {
@@ -153,6 +160,22 @@ const Home = (props) => {
       }, 1000); 
       }
   
+    }
+
+    const handleLogout = () => {
+      setShowSpinner(true);
+      try {
+        Cookie.remove('ID');
+        Cookie.remove('token');
+      } catch(error) {
+        throw error
+      } finally {
+        setTimeout(() => {
+          setShowSpinner(false);
+          window.location.reload()
+      }, 1000); 
+      }
+     
     }
 
 
@@ -260,6 +283,7 @@ const Home = (props) => {
                   <Menu.Item 
                     key="10" 
                     icon={<LogoutOutlined />}  
+                    onClick={handleLogout}
                   >
                     Sign out
                   </Menu.Item>

@@ -4,7 +4,6 @@ const Register = require("../Model/RegistrationModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Define a static secret key for HMAC
 const secretKey = "yourSecretKeyHere";
 
 const verifyToken = (req, res, next) => {
@@ -19,7 +18,6 @@ const verifyToken = (req, res, next) => {
     jwt.verify(tokenWithoutBearer, secretKey, async (err, decoded) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
-                // Handle token expiration
             } else {
                 return res.status(403).json({ message: 'Unauthorized: Invalid token' });
             }
@@ -47,13 +45,11 @@ router.post('/', async (req, res) => {
             return res.status(401).json({ message: 'Incorrect password' });
         }
 
-        // Sign the token using HMAC with the static secret key
         const token = jwt.sign({ userId }, secretKey, { expiresIn: "1d" });
 
         res.status(200).json({ token: token, ID: userId, name: full_name, Result: "Login Successful" });
 
     } catch (error) {
-        console.error("Login error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 });

@@ -1,20 +1,45 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from 'axios'
 import { route, url } from "../routes/Routes";
+import { nullOrUndefined } from "../common/helpers/nullOrUndefined";
 
-// Define your regex patterns
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-// Define an async thunk for registration
+
 export const RegistrationApi = createAsyncThunk("registerUser", async(data, { rejectWithValue }) => {
+
     try {
+
+        if(nullOrUndefined(data.name) === null) {   
+            throw new Error("Please type your name")
+        } 
+
+        if(nullOrUndefined(data.emailAddress) === null) {
+            throw new Error("Please type your email")
+        }
+
+        if(nullOrUndefined(data.password) === null) {
+            throw new Error("Please type your password")
+        }
+
+        if(nullOrUndefined(data.repeatPassword) === null) {
+            throw new Error("Please type your repeat password")
+        }
+
+        if(data.password != data.repeatPassword) {
+            throw new Error("Password does not match")
+        }
+
         if (!emailRegex.test(data.emailAddress)) {
             throw new Error("Invalid email address");
         }
+
         if (!passwordRegex.test(data.password)) {
             throw new Error("Invalid password");
         }
+
+        
 
         const response = await Axios.post(`${url.urls}/${route.registerRoute}`, data);
         return response.data;
