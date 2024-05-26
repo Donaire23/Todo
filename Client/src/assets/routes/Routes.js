@@ -16,7 +16,7 @@ export const userRoute = {
 }
 
 export const url = {
-    urls: 'http://localhost:3001'
+    urls: 'https://todo-lf21.vercel.app'
 }
 
 export const localhost = {
